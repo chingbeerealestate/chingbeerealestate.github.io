@@ -33,7 +33,7 @@
     .profile{display:grid;grid-template-columns:82px 1fr;gap:14px;align-items:center} .profile img{width:82px;height:82px;border-radius:50%;object-fit:cover;border:4px solid white;box-shadow:0 0 0 2px var(--gold)}
     .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px} .media-card{border:1px solid var(--line);background:white;border-radius:14px;overflow:hidden} .media-card img{display:block;width:100%;height:120px;object-fit:cover} .media-card span{display:block;padding:9px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .messages{display:grid;gap:10px;max-height:360px;overflow:auto;padding-right:4px} .msg{background:white;border:1px solid var(--line);border-radius:14px;padding:11px} .msg time{display:block;color:var(--muted);font-size:11px;margin-top:5px}
-    .tab{display:none} .tab.active{display:block} .guard{border-left:4px solid var(--gold)} .contact{white-space:pre-line;font-weight:700;color:var(--green)}
+    .tab{display:none} .tab.active{display:block} .guard{border-left:4px solid var(--gold)} .contact{white-space:pre-line;font-weight:700;color:var(--green)} .live-embed{padding:4px 0 0}.live-note{font-size:13px;color:var(--muted);margin-top:8px}.giscus{min-height:360px}
     @media(max-width:920px){.app{grid-template-columns:1fr} aside{height:auto;position:relative} main{padding:18px} .cols-3,.cols-2,.row{grid-template-columns:1fr} .topbar{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
@@ -50,6 +50,7 @@
       <button data-tab="listings">Listing intake</button>
       <button data-tab="media">Media library</button>
       <button data-tab="notes">Notes / chat</button>
+      <button data-tab="live">Live desk</button>
       <button data-tab="private">Private room</button>
     </nav>
     <div class="side-note">This is a local-first GitHub Pages tool. Data saves in this browser until a backend is added. Don’t store sensitive legal documents here yet.</div>
@@ -100,13 +101,17 @@
       </div>
     </section>
 
+    <section class="tab" id="live">
+      <section class="panel"><div class="panel-head"><div><h2>Live desk</h2><p class="sub">Repo-native live feed/chat using GitHub Discussions. Sign in with GitHub to post; messages are stored in the repository discussion.</p><p class="live-note">Use this for lightweight daily updates, links, handoffs, and quick coordination. Do not paste private legal documents or unapproved client-sensitive details here.</p></div></div><div class="panel-body live-embed"><div class="giscus"></div><script src="https://giscus.app/client.js" data-repo="chingbeerealestate/chingbeerealestate.github.io" data-repo-id="R_kgDOUurfEw" data-category="General" data-category-id="DIC_kwDOUurfE84DGhYf" data-mapping="specific" data-term="CHINGBEE Live Desk" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async></script></div></section>
+    </section>
+
     <section class="tab" id="private">
       <section class="panel"><div class="panel-head"><div><h2>Private partner room</h2><p class="sub">Light gate for hidden working notes. Not real security.</p></div></div><div class="panel-body" id="privateGate"><div class="form"><label>Room code<input id="roomCode" placeholder="Enter code"></label><button class="btn primary" id="unlockRoom" type="button">Open room</button></div></div><div class="panel-body" id="privateRoom" hidden><form class="form" id="privateForm"><label>Private note<textarea name="text" required placeholder="Partner note, responsibility, decision, follow-up..."></textarea></label><button class="btn primary" type="submit">Save private note</button></form><div class="list" id="privateList" style="margin-top:14px"></div></div></section>
     </section>
   </main>
 </div>
 <script>
-const KEY='chingbee-workspace-v4';
+const KEY='chingbee-workspace-v5';
 const initial={people:[{id:'01',name:'CHINGBEE Real Estate',role:'Business system',status:'Active'},{id:'02',name:'Jacob',role:'Operator',status:'Active'},{id:'03',name:'Kim',role:'Business partner contact',status:'Pending details'}],tasks:[{title:'Wait for verified listings',status:'Waiting',owner:'01 CHINGBEE',notes:'Do not invent property facts. Keep listing intake ready.'},{title:'Maintain CRE EXCL',status:'Next',owner:'02 Jacob',notes:'Live sheet remains inventory truth; update only from verified inputs.'},{title:'Prepare native real-estate source photos',status:'Doing',owner:'01 CHINGBEE',notes:'No human depictions, no glossy generic ad look, no text in generated image.'}],listings:[],messages:[{text:'Workspace started. Local-first. Nothing here is public unless approved.',time:new Date().toLocaleString()}],private:[],media:[]};
 let state=JSON.parse(localStorage.getItem(KEY)||'null')||initial; const $=s=>document.querySelector(s); const $$=s=>Array.from(document.querySelectorAll(s));
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
