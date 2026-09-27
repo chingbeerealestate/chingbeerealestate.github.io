@@ -106,7 +106,7 @@
   </main>
 </div>
 <script>
-const KEY='chingbee-workspace-v3';
+const KEY='chingbee-workspace-v4';
 const initial={people:[{id:'01',name:'CHINGBEE Real Estate',role:'Business system',status:'Active'},{id:'02',name:'Jacob',role:'Operator',status:'Active'},{id:'03',name:'Kim',role:'Business partner contact',status:'Pending details'}],tasks:[{title:'Wait for verified listings',status:'Waiting',owner:'01 CHINGBEE',notes:'Do not invent property facts. Keep listing intake ready.'},{title:'Maintain CRE EXCL',status:'Next',owner:'02 Jacob',notes:'Live sheet remains inventory truth; update only from verified inputs.'},{title:'Prepare native real-estate source photos',status:'Doing',owner:'01 CHINGBEE',notes:'No human depictions, no glossy generic ad look, no text in generated image.'}],listings:[],messages:[{text:'Workspace started. Local-first. Nothing here is public unless approved.',time:new Date().toLocaleString()}],private:[],media:[]};
 let state=JSON.parse(localStorage.getItem(KEY)||'null')||initial; const $=s=>document.querySelector(s); const $$=s=>Array.from(document.querySelectorAll(s));
 function save(){localStorage.setItem(KEY,JSON.stringify(state))}
